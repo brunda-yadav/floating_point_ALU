@@ -1,0 +1,53 @@
+module encoder;
+
+    reg [24:0] significand;
+    reg [7:0] Exponent_a;
+    wire [24:0] Significand;
+    wire [7:0] Exponent_sub;
+
+    priority_encoder uut (
+        .significand(significand),
+        .Exponent_a(Exponent_a),
+        .Significand(Significand),
+        .Exponent_sub(Exponent_sub)
+    );
+
+    initial begin
+     
+        $monitor("Time = %0t | Input Significand = %b | Exponent_a = %d | Output Significand = %b | Exponent_sub = %d",
+                 $time, significand, Exponent_a, Significand, Exponent_sub);
+
+       
+        significand = 25'b1_100000000000000000000000;
+        Exponent_a = 8'd127;
+        #10;
+
+       
+        significand = 25'b1_010000000000000000000000;
+        Exponent_a = 8'd130;
+        #10;
+
+        significand = 25'b1_000001000000000000000000;
+        Exponent_a = 8'd140;
+        #10;
+
+       
+        significand = 25'b1_000000000010000000000000;
+        Exponent_a = 8'd150;
+        #10;
+
+       
+        significand = 25'b1_000000000000000000000001;
+        Exponent_a = 8'd160;
+        #10;
+
+     
+        significand = 25'b0_000000000000000000000000;
+        Exponent_a = 8'd170;
+        #10;
+
+       
+        $stop;
+    end
+
+endmodule
